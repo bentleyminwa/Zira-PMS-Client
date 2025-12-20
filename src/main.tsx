@@ -14,7 +14,10 @@ if (!PUBLISHABLE_KEY) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      afterSignOutUrl='http://localhost:3000'
+    >
       <ThemeProvider defaultTheme='light' storageKey='zira-theme'>
         <BrowserRouter>
           <App />
