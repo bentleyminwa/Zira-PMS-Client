@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { Heart, MapPin } from 'lucide-react';
 import React from 'react';
 
@@ -26,9 +27,13 @@ export const PropertyTitleSection: React.FC<PropertyTitleSectionProps> = ({
             <span className='text-xs font-bold'>{address}</span>
           </div>
         </div>
-        <button className='text-muted-foreground hover:text-primary transition-colors'>
+        <Button
+          variant='ghost'
+          size='icon'
+          className='text-muted-foreground hover:text-primary transition-colors'
+        >
           <Heart className='w-5 h-5' />
-        </button>
+        </Button>
       </div>
 
       <div className='flex items-baseline gap-2'>

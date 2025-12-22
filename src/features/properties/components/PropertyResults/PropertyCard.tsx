@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Bath, Bed, Heart, MapPin, Move } from 'lucide-react';
 import React from 'react';
@@ -16,7 +18,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
   onSelect,
 }) => {
   return (
-    <div
+    <Card
       onClick={onSelect}
       className={cn(
         'group relative bg-card rounded-2xl p-4 flex gap-6 cursor-pointer border-2 transition-all duration-300',
@@ -35,9 +37,13 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           alt={property.name}
           className='w-full h-full object-cover transition-transform duration-500 group-hover:scale-110'
         />
-        <button className='absolute top-2 right-2 p-1.5 rounded-full bg-white/80 backdrop-blur-sm text-muted-foreground hover:text-red-500 hover:bg-white transition-colors'>
+        <Button
+          size='icon'
+          variant='ghost'
+          className='absolute top-2 right-2 h-7 w-7 rounded-full bg-white/80 backdrop-blur-sm text-muted-foreground hover:text-red-500 hover:bg-white transition-colors'
+        >
           <Heart className='w-3.5 h-3.5' />
-        </button>
+        </Button>
       </div>
 
       {/* Property Info */}
@@ -85,10 +91,13 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
 
       {/* View Details Button */}
       <div className='absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transition-opacity'>
-        <button className='text-primary font-bold text-sm hover:underline'>
+        <Button
+          variant='link'
+          className='text-primary font-bold text-sm hover:underline decoration-0'
+        >
           View details ›
-        </button>
+        </Button>
       </div>
-    </div>
+    </Card>
   );
 };
