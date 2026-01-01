@@ -1,7 +1,6 @@
-import { format } from 'date-fns';
-import React from 'react';
-import { useCreateBooking } from '../../hooks/useCreateBooking';
+import React, { useState } from 'react';
 import type { Property } from '../../types';
+import { CheckoutWizard } from '../Checkout/CheckoutWizard';
 import { PropertyActions } from './PropertyActions';
 import { PropertyImageHeader } from './PropertyImageHeader';
 import { PropertyStatsGrid } from './PropertyStatsGrid';
@@ -14,14 +13,10 @@ interface PropertyDetailsProps {
 export const PropertyDetails: React.FC<PropertyDetailsProps> = ({
   property,
 }) => {
-  const { createBooking, loading, success, error } = useCreateBooking();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
-  const handleBooking = async () => {
-    await createBooking({
-      propertyId: property.id,
-      leaseType: 'LONG_TERM',
-      startDate: format(new Date(), 'yyyy-MM-dd'),
-    });
+  const handleBooking = () => {
+    setIsCheckoutOpen(true);
   };
 
   return (
@@ -49,10 +44,15 @@ export const PropertyDetails: React.FC<PropertyDetailsProps> = ({
       </div>
 
       <PropertyActions
-        loading={loading}
-        success={success}
-        error={error}
+        loading={false}
         onBooking={handleBooking}
+        listingType={property.listingType}
+      />
+
+      <CheckoutWizard
+        property={property}
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
       />
     </div>
   );
