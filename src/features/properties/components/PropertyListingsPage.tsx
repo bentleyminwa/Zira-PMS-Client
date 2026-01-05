@@ -3,86 +3,32 @@ import { PropertyDetails } from '@/features/properties/components/PropertyDetail
 import { PropertyResults } from '@/features/properties/components/PropertyResults';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
-import React, { useEffect, useMemo, useState } from 'react';
-import { MOCK_PROPERTIES } from '../config/mockData'; // Keep this for fallback as per instruction
+import React, { useEffect, useState } from 'react';
 import { useProperties } from '../hooks/useProperties';
+import { usePropertyFiltering } from '../hooks/usePropertyFiltering';
 import type { Property } from '../types';
 
 interface PropertyListingsPageProps {
   listingType: 'BUY' | 'RENT';
 }
 
-export type SortOption = 'newest' | 'price-low' | 'price-high';
-
-export interface FilterState {
-  type: string;
-  location: string;
-  minPrice: number;
-  maxPrice: number;
-}
-
-const DEFAULT_FILTERS: FilterState = {
-  type: 'Apartment',
-  location: 'California, USA',
-  minPrice: 0,
-  maxPrice: 3000000,
-};
-
 export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
   listingType,
 }) => {
   // 1. All hooks must be called at the very top, unconditionally
   const { properties, loading, error } = useProperties(listingType);
+  const {
+    filters,
+    setFilters,
+    sortBy,
+    setSortBy,
+    filteredAndSortedProperties,
+    handleResetFilters,
+  } = usePropertyFiltering(properties, listingType);
+
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(
     null
   );
-  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
-  const [sortBy, setSortBy] = useState<SortOption>('newest');
-
-  // Memoize base properties to avoid unnecessary re-filtering of mock data
-  const baseProperties = useMemo(() => {
-    return properties.length > 0
-      ? properties
-      : MOCK_PROPERTIES.filter((p) => p.listingType === listingType);
-  }, [properties, listingType]);
-
-  // Memoize filtered and sorted list
-  const filteredAndSortedProperties = useMemo(() => {
-    return baseProperties
-      .filter((p) => {
-        if (!p) return false;
-
-        // Defensive checks for potential missing data in Supabase
-        const pType = p.type || 'APARTMENT';
-        const pCity = p.city || '';
-        const pPrice = p.price || 0;
-
-        // Map 'Villas' to 'CONDO' for matching
-        const targetType = filters.type === 'Villas' ? 'CONDO' : filters.type;
-
-        const matchesType = pType.toUpperCase() === targetType.toUpperCase();
-        const matchesLocation =
-          filters.location === 'California, USA' ||
-          pCity.toLowerCase().includes(filters.location.toLowerCase()) ||
-          filters.location.includes(pCity);
-        const matchesPrice =
-          pPrice >= filters.minPrice && pPrice <= filters.maxPrice;
-
-        return matchesType && matchesLocation && matchesPrice;
-      })
-      .sort((a, b) => {
-        const priceA = a.price || 0;
-        const priceB = b.price || 0;
-        if (sortBy === 'price-low') return priceA - priceB;
-        if (sortBy === 'price-high') return priceB - priceA;
-        if (sortBy === 'newest')
-          return (
-            new Date(b.createdAt || 0).getTime() -
-            new Date(a.createdAt || 0).getTime()
-          );
-        return 0;
-      });
-  }, [baseProperties, filters, sortBy]);
 
   // Handle initial selection and auto-selection after filtering
   useEffect(() => {
@@ -122,10 +68,6 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
       </div>
     );
   }
-
-  const handleResetFilters = () => {
-    setFilters(DEFAULT_FILTERS);
-  };
 
   return (
     <div className='flex h-[calc(100vh-64px)] overflow-hidden bg-background'>

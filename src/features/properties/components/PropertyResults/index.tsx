@@ -4,7 +4,7 @@ import type { Property } from '../../types';
 import { PropertyCard } from './PropertyCard';
 import { ResultsHeader } from './ResultsHeader';
 
-import type { SortOption } from '../PropertyListingsPage';
+import type { SortOption } from '../../types';
 
 interface PropertyResultsProps {
   properties: Property[];

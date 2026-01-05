@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/select';
 import React from 'react';
 
-import type { SortOption } from '../PropertyListingsPage';
+import type { SortOption } from '../../types';
 
 interface ResultsHeaderProps {
   count: number;

@@ -74,3 +74,12 @@ export interface CheckoutData {
     amount: number;
   };
 }
+
+export type SortOption = 'newest' | 'price-low' | 'price-high';
+
+export interface FilterState {
+  type: string;
+  location: string;
+  minPrice: number;
+  maxPrice: number;
+}

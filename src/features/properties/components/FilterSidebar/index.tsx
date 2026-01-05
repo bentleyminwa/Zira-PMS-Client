@@ -4,7 +4,7 @@ import { LocationFilter } from './LocationFilter';
 import { PriceRangeFilter } from './PriceRangeFilter';
 import { PropertyTypeFilter } from './PropertyTypeFilter';
 
-import type { FilterState } from '../PropertyListingsPage';
+import type { FilterState } from '../../types';
 
 interface FilterSidebarProps {
   filters: FilterState;
