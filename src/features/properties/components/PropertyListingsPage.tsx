@@ -15,7 +15,6 @@ interface PropertyListingsPageProps {
 export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
   listingType,
 }) => {
-  // 1. All hooks must be called at the very top, unconditionally
   const { properties, loading, error } = useProperties(listingType);
   const {
     filters,
@@ -30,7 +29,6 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
     null
   );
 
-  // Handle initial selection and auto-selection after filtering
   useEffect(() => {
     if (filteredAndSortedProperties.length > 0 && !selectedProperty) {
       setSelectedProperty(filteredAndSortedProperties[0]);
@@ -39,7 +37,6 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
     }
   }, [filteredAndSortedProperties, selectedProperty]);
 
-  // 2. Early returns happen only after all top-level hooks have been called
   if (loading) {
     return (
       <div className='flex flex-1 items-center justify-center bg-background'>
@@ -71,7 +68,6 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
 
   return (
     <div className='flex h-[calc(100vh-64px)] overflow-hidden bg-background'>
-      {/* Column 1: Filters */}
       <FilterSidebar
         filters={filters}
         onFilterChange={(updates) =>
@@ -80,7 +76,6 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
         onReset={handleResetFilters}
       />
 
-      {/* Column 2: Results */}
       <PropertyResults
         properties={filteredAndSortedProperties}
         selectedId={selectedProperty?.id}
@@ -89,7 +84,6 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
         onSortChange={setSortBy}
       />
 
-      {/* Column 3: Details */}
       <AnimatePresence mode='wait'>
         {selectedProperty && (
           <motion.div

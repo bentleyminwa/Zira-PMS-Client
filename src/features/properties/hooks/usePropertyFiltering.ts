@@ -6,7 +6,7 @@ const DEFAULT_FILTERS: FilterState = {
   type: 'Apartment',
   location: 'California, USA',
   minPrice: 0,
-  maxPrice: 3000000,
+  maxPrice: 5000000,
 };
 
 export function usePropertyFiltering(
