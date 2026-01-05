@@ -88,16 +88,6 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({
           </div>
         </div>
       </div>
-
-      {/* View Details Button */}
-      <div className='absolute top-1/2 -translate-y-1/2 right-4 opacity-0 group-hover:opacity-100 transition-opacity'>
-        <Button
-          variant='link'
-          className='text-primary font-bold text-sm hover:underline decoration-0'
-        >
-          View details ›
-        </Button>
-      </div>
     </Card>
   );
 };
