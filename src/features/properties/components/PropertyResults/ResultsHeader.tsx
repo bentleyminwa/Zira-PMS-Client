@@ -5,10 +5,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import React, { useState } from 'react';
+import React from 'react';
+
+import type { SortOption } from '../PropertyListingsPage';
 
 interface ResultsHeaderProps {
   count: number;
+  sortBy: SortOption;
+  onSortChange: (value: SortOption) => void;
 }
 
 const sortOptions = [
@@ -17,9 +21,11 @@ const sortOptions = [
   { value: 'price-high', label: 'Price: High to Low' },
 ];
 
-export const ResultsHeader: React.FC<ResultsHeaderProps> = ({ count }) => {
-  const [sortBy, setSortBy] = useState('newest');
-
+export const ResultsHeader: React.FC<ResultsHeaderProps> = ({
+  count,
+  sortBy,
+  onSortChange,
+}) => {
   return (
     <div className='flex items-center justify-between mb-8'>
       <h1 className='text-2xl font-bold'>
@@ -30,7 +36,10 @@ export const ResultsHeader: React.FC<ResultsHeaderProps> = ({ count }) => {
       </h1>
       <div className='flex items-center gap-2'>
         <span className='text-sm text-muted-foreground'>Sort by:</span>
-        <Select value={sortBy} onValueChange={setSortBy}>
+        <Select
+          value={sortBy}
+          onValueChange={(val) => onSortChange(val as SortOption)}
+        >
           <SelectTrigger className='w-auto border-none bg-transparent text-sm font-semibold focus:ring-0 h-auto p-0 gap-1'>
             <SelectValue />
           </SelectTrigger>

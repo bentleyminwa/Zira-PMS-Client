@@ -1,6 +1,16 @@
 import React from 'react';
 
-export const PriceRangeFilter: React.FC = () => {
+interface PriceRangeFilterProps {
+  minPrice: number;
+  maxPrice: number;
+  onChange: (updates: { minPrice?: number; maxPrice?: number }) => void;
+}
+
+export const PriceRangeFilter: React.FC<PriceRangeFilterProps> = ({
+  minPrice,
+  maxPrice,
+  onChange,
+}) => {
   return (
     <div className='space-y-4'>
       <label className='text-[10px] font-bold text-muted-foreground uppercase tracking-wider'>
@@ -17,9 +27,17 @@ export const PriceRangeFilter: React.FC = () => {
             />
           ))}
           <div className='absolute inset-x-0 bottom-4 flex justify-between px-2 items-center'>
-            <div className='w-4 h-4 rounded-full bg-background border-2 border-primary shadow-md' />
+            <div
+              className='w-4 h-4 rounded-full bg-background border-2 border-primary shadow-md cursor-pointer'
+              onClick={() =>
+                onChange({ minPrice: Math.max(0, minPrice - 10000) })
+              }
+            />
             <div className='flex-1 border-t-2 border-primary mx-1' />
-            <div className='w-4 h-4 rounded-full bg-background border-2 border-primary shadow-md' />
+            <div
+              className='w-4 h-4 rounded-full bg-background border-2 border-primary shadow-md cursor-pointer'
+              onClick={() => onChange({ maxPrice: maxPrice + 10000 })}
+            />
           </div>
         </div>
         <div className='flex items-center gap-4'>
@@ -28,7 +46,7 @@ export const PriceRangeFilter: React.FC = () => {
               Min
             </span>
             <div className='font-semibold px-3 py-1.5 bg-background border border-border rounded-lg'>
-              $ 150,000
+              $ {minPrice.toLocaleString()}
             </div>
           </div>
           <div className='text-muted-foreground'>—</div>
@@ -37,7 +55,7 @@ export const PriceRangeFilter: React.FC = () => {
               Max
             </span>
             <div className='font-semibold px-3 py-1.5 bg-background border border-border rounded-lg'>
-              $ 350,000
+              $ {maxPrice.toLocaleString()}
             </div>
           </div>
         </div>

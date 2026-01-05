@@ -39,8 +39,6 @@ export const PropertyDetails: React.FC<PropertyDetailsProps> = ({
           bathrooms={property.bathrooms}
           size={property.size}
         />
-
-        {/* Description and Map removed to fit in one view */}
       </div>
 
       <PropertyActions

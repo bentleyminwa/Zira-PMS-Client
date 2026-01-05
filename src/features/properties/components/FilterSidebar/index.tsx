@@ -4,14 +4,18 @@ import { LocationFilter } from './LocationFilter';
 import { PriceRangeFilter } from './PriceRangeFilter';
 import { PropertyTypeFilter } from './PropertyTypeFilter';
 
+import type { FilterState } from '../PropertyListingsPage';
+
 interface FilterSidebarProps {
-  activeType: string;
-  onTypeChange: (type: string) => void;
+  filters: FilterState;
+  onFilterChange: (updates: Partial<FilterState>) => void;
+  onReset: () => void;
 }
 
 export const FilterSidebar: React.FC<FilterSidebarProps> = ({
-  activeType,
-  onTypeChange,
+  filters,
+  onFilterChange,
+  onReset,
 }) => {
   return (
     <aside className='w-80 border-r border-border bg-card p-5 space-y-6 shrink-0'>
@@ -21,17 +25,24 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         </h2>
         <div className='space-y-4'>
           <PropertyTypeFilter
-            activeType={activeType}
-            onTypeChange={onTypeChange}
+            activeType={filters.type}
+            onTypeChange={(type) => onFilterChange({ type })}
           />
         </div>
       </div>
 
-      <LocationFilter />
+      <LocationFilter
+        value={filters.location}
+        onChange={(location) => onFilterChange({ location })}
+      />
 
-      <PriceRangeFilter />
+      <PriceRangeFilter
+        minPrice={filters.minPrice}
+        maxPrice={filters.maxPrice}
+        onChange={(updates) => onFilterChange(updates)}
+      />
 
-      <FilterActions />
+      <FilterActions onReset={onReset} />
     </aside>
   );
 };

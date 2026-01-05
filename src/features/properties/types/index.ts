@@ -15,6 +15,7 @@ export interface Property {
   status: 'AVAILABLE' | 'RENTED' | 'MAINTENANCE';
   agentId?: string;
   agent?: Agent;
+  createdAt?: string;
 }
 
 export interface Agent {

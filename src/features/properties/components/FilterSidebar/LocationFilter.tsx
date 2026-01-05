@@ -9,14 +9,22 @@ import {
 import { MapPin } from 'lucide-react';
 import React from 'react';
 
-export const LocationFilter: React.FC = () => {
+interface LocationFilterProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const LocationFilter: React.FC<LocationFilterProps> = ({
+  value,
+  onChange,
+}) => {
   return (
     <div className='space-y-4'>
       <Label className='text-sm font-medium text-muted-foreground uppercase tracking-wider'>
         Location
       </Label>
       <div className='relative'>
-        <Select defaultValue='California, USA'>
+        <Select value={value} onValueChange={onChange}>
           <SelectTrigger className='w-full pl-10'>
             <MapPin className='absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground' />
             <SelectValue placeholder='Select location' />
