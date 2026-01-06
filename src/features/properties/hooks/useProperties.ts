@@ -1,39 +1,36 @@
 import { useSupabase } from '@/hooks/useSupabase';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import type { Property } from '../types';
 
 export function useProperties(listingType?: 'BUY' | 'RENT') {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const supabase = useSupabase();
 
-  useEffect(() => {
-    async function fetchProperties() {
-      try {
-        setLoading(true);
-        let query = supabase
-          .from('Property')
-          .select('*, agent:User(*)')
-          .eq('status', 'AVAILABLE');
+  const {
+    data: properties = [],
+    isLoading: loading,
+    error,
+  } = useQuery({
+    queryKey: ['properties', listingType],
+    queryFn: async () => {
+      let query = supabase
+        .from('Property')
+        .select('*, agent:User(*)')
+        .eq('status', 'AVAILABLE');
 
-        if (listingType) {
-          query = query.eq('listingType', listingType);
-        }
-
-        const { data, error } = await query;
-
-        if (error) throw error;
-        setProperties(data || []);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      if (listingType) {
+        query = query.eq('listingType', listingType);
       }
-    }
 
-    fetchProperties();
-  }, [supabase, listingType]);
+      const { data, error } = await query;
 
-  return { properties, loading, error };
+      if (error) throw error;
+      return data as Property[];
+    },
+  });
+
+  return {
+    properties,
+    loading,
+    error: error ? (error as Error).message : null,
+  };
 }

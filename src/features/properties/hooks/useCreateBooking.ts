@@ -27,7 +27,7 @@ export function useCreateBooking() {
           tenantId: user.id, // RLS should handle this, but explicit is better
           startDate: request.startDate,
           endDate: request.endDate,
-          leaseType: request.leaseType,
+          leaseType: request.type,
           status: 'PENDING',
           notes: request.notes,
         },
