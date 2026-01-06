@@ -17,7 +17,7 @@ export function useCheckout(property: Property) {
       console.log('Starting checkout process for:', data.tenant.email);
 
       // 1. Ensure Tenant exists (or create one)
-      let { data: tenant, error: searchError } = await supabase
+      const { data: tenant, error: searchError } = await supabase
         .from('Tenant')
         .select('id')
         .eq('email', data.tenant.email)
@@ -133,9 +133,11 @@ export function useCheckout(property: Property) {
 
       setSuccess(true);
       console.log('Checkout completed successfully');
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Checkout failed:', err);
-      setError(err.message || 'An unexpected error occurred during checkout.');
+      const message =
+        err instanceof Error ? err.message : 'An unexpected error occurred';
+      setError(message);
     } finally {
       setLoading(false);
     }

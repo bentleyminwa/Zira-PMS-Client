@@ -57,7 +57,12 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             <Button
               key={m.id}
               variant={data.method === m.id ? 'default' : 'outline'}
-              onClick={() => onChange({ ...data, method: m.id as any })}
+              onClick={() =>
+                onChange({
+                  ...data,
+                  method: m.id as CheckoutData['payment']['method'],
+                })
+              }
               className={cn(
                 'h-16 rounded-2xl flex flex-col gap-1 items-center justify-center transition-all',
                 data.method === m.id

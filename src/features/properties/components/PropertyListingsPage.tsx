@@ -3,10 +3,9 @@ import { PropertyDetails } from '@/features/properties/components/PropertyDetail
 import { PropertyResults } from '@/features/properties/components/PropertyResults';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useProperties } from '../hooks/useProperties';
 import { usePropertyFiltering } from '../hooks/usePropertyFiltering';
-import type { Property } from '../types';
 
 interface PropertyListingsPageProps {
   listingType: 'BUY' | 'RENT';
@@ -25,22 +24,13 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
     handleResetFilters,
   } = usePropertyFiltering(properties, listingType);
 
-  const [selectedProperty, setSelectedProperty] = useState<Property | null>(
-    null
-  );
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (filteredAndSortedProperties.length > 0) {
-      const isStillInList = filteredAndSortedProperties.some(
-        (p) => p.id === selectedProperty?.id
-      );
-      if (!selectedProperty || !isStillInList) {
-        setSelectedProperty(filteredAndSortedProperties[0]);
-      }
-    } else if (selectedProperty) {
-      setSelectedProperty(null);
-    }
-  }, [filteredAndSortedProperties, selectedProperty?.id]);
+  const selectedProperty = React.useMemo(() => {
+    if (filteredAndSortedProperties.length === 0) return null;
+    const found = filteredAndSortedProperties.find((p) => p.id === selectedId);
+    return found || filteredAndSortedProperties[0];
+  }, [filteredAndSortedProperties, selectedId]);
 
   if (loading) {
     return (
@@ -84,7 +74,7 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
       <PropertyResults
         properties={filteredAndSortedProperties}
         selectedId={selectedProperty?.id}
-        onSelect={setSelectedProperty}
+        onSelect={(p) => setSelectedId(p.id)}
         sortBy={sortBy}
         onSortChange={setSortBy}
       />
