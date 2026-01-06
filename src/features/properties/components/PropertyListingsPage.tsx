@@ -30,12 +30,17 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
   );
 
   useEffect(() => {
-    if (filteredAndSortedProperties.length > 0 && !selectedProperty) {
-      setSelectedProperty(filteredAndSortedProperties[0]);
-    } else if (filteredAndSortedProperties.length === 0 && selectedProperty) {
+    if (filteredAndSortedProperties.length > 0) {
+      const isStillInList = filteredAndSortedProperties.some(
+        (p) => p.id === selectedProperty?.id
+      );
+      if (!selectedProperty || !isStillInList) {
+        setSelectedProperty(filteredAndSortedProperties[0]);
+      }
+    } else if (selectedProperty) {
       setSelectedProperty(null);
     }
-  }, [filteredAndSortedProperties, selectedProperty]);
+  }, [filteredAndSortedProperties, selectedProperty?.id]);
 
   if (loading) {
     return (
