@@ -1,8 +1,7 @@
 import { TopNavbar } from '@/components/layout/TopNavbar';
 import { AgentsPage } from '@/features/agents/components/AgentsPage';
 import { PropertyListingsPage } from '@/features/properties/components/PropertyListingsPage';
-import { SignedIn, SignedOut } from '@clerk/clerk-react';
-import { useEffect } from 'react';
+import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -29,23 +28,9 @@ function App() {
         </div>
       </SignedIn>
       <SignedOut>
-        <RedirectToAdminApp />
+        <RedirectToSignIn />
       </SignedOut>
     </>
-  );
-}
-
-function RedirectToAdminApp() {
-  useEffect(() => {
-    // Redirect to Admin App Landing Page
-    const ADMIN_URL = import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000';
-    window.location.href = ADMIN_URL;
-  }, []);
-
-  return (
-    <div className='flex items-center justify-center min-h-screen'>
-      <p>Redirecting to home...</p>
-    </div>
   );
 }
 
