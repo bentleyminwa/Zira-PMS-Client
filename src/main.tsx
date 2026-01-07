@@ -19,7 +19,15 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ClerkProvider
       publishableKey={PUBLISHABLE_KEY}
-      afterSignOutUrl='http://localhost:3000'
+      afterSignOutUrl={
+        import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000'
+      }
+      signInUrl={`${
+        import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000'
+      }/sign-in`}
+      signUpUrl={`${
+        import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000'
+      }/sign-up`}
     >
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme='light' storageKey='zira-theme'>
