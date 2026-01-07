@@ -1,7 +1,7 @@
 import { TopNavbar } from '@/components/layout/TopNavbar';
 import { AgentsPage } from '@/features/agents/components/AgentsPage';
 import { PropertyListingsPage } from '@/features/properties/components/PropertyListingsPage';
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -28,7 +28,22 @@ function App() {
         </div>
       </SignedIn>
       <SignedOut>
-        <RedirectToSignIn />
+        <div className='flex flex-col items-center justify-center min-h-screen space-y-4'>
+          <h1 className='text-2xl font-bold'>Welcome to Zira Homes</h1>
+          <p className='text-muted-foreground'>
+            Please sign in to access your dashboard
+          </p>
+          <button
+            onClick={() => {
+              const ADMIN_URL =
+                import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000';
+              window.location.href = `${ADMIN_URL}/sign-in`;
+            }}
+            className='px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors'
+          >
+            Sign In with Zira Account
+          </button>
+        </div>
       </SignedOut>
     </>
   );
