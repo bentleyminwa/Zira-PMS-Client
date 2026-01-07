@@ -1,7 +1,8 @@
 import { TopNavbar } from '@/components/layout/TopNavbar';
 import { AgentsPage } from '@/features/agents/components/AgentsPage';
 import { PropertyListingsPage } from '@/features/properties/components/PropertyListingsPage';
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/clerk-react';
+import { SignedIn, SignedOut } from '@clerk/clerk-react';
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -28,9 +29,21 @@ function App() {
         </div>
       </SignedIn>
       <SignedOut>
-        <RedirectToSignIn signInFallbackRedirectUrl='https://zira-homes-pm.vercel.app/' />
+        <RedirectToAdminApp />
       </SignedOut>
     </>
+  );
+}
+
+function RedirectToAdminApp() {
+  useEffect(() => {
+    window.location.href = 'https://zira-homes-pm.vercel.app/';
+  }, []);
+
+  return (
+    <div className='flex items-center justify-center min-h-screen'>
+      <p>Redirecting to sign in...</p>
+    </div>
   );
 }
 
