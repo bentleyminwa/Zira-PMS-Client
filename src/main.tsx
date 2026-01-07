@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ClerkProvider
       publishableKey={PUBLISHABLE_KEY}
-      afterSignOutUrl='https://zira-homes-pm.vercel.app/'
+      afterSignOutUrl='http://localhost:3000'
     >
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme='light' storageKey='zira-theme'>
