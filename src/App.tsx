@@ -28,7 +28,7 @@ function App() {
         </div>
       </SignedIn>
       <SignedOut>
-        <RedirectToSignIn redirectUrl='https://zira-homes-pm.vercel.app/sign-in' />
+        <RedirectToSignIn signInFallbackRedirectUrl='https://zira-homes-pm.vercel.app/' />
       </SignedOut>
     </>
   );
