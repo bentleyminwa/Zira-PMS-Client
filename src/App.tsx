@@ -12,17 +12,17 @@ function App() {
           <TopNavbar />
           <main className='flex-1 flex flex-col'>
             <Routes>
-              <Route path='/' element={<Navigate to='/buy' replace />} />
+              <Route path='/' element={<Navigate to='/long-term' replace />} />
               <Route
-                path='/buy'
-                element={<PropertyListingsPage listingType='BUY' />}
+                path='/long-term'
+                element={<PropertyListingsPage bookingType='LONG_TERM' />}
               />
               <Route
-                path='/rent'
-                element={<PropertyListingsPage listingType='RENT' />}
+                path='/short-term'
+                element={<PropertyListingsPage bookingType='SHORT_TERM' />}
               />
               <Route path='/agents' element={<AgentsPage />} />
-              <Route path='*' element={<Navigate to='/buy' replace />} />
+              <Route path='*' element={<Navigate to='/long-term' replace />} />
             </Routes>
           </main>
         </div>

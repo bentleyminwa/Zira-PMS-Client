@@ -11,7 +11,7 @@ const DEFAULT_FILTERS: FilterState = {
 
 export function usePropertyFiltering(
   properties: Property[],
-  listingType: 'BUY' | 'RENT'
+  bookingType: 'SHORT_TERM' | 'LONG_TERM'
 ) {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
@@ -20,8 +20,8 @@ export function usePropertyFiltering(
   const baseProperties = useMemo(() => {
     return properties.length > 0
       ? properties
-      : MOCK_PROPERTIES.filter((p) => p.listingType === listingType);
-  }, [properties, listingType]);
+      : MOCK_PROPERTIES.filter((p) => p.bookingType === bookingType);
+  }, [properties, bookingType]);
 
   // Memoize filtered and sorted list
   const filteredAndSortedProperties = useMemo(() => {

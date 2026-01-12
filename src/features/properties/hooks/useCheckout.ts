@@ -113,7 +113,7 @@ export function useCheckout(property: Property) {
           id: crypto.randomUUID(),
           amount: data.payment.amount,
           method: data.payment.method,
-          type: property.listingType === 'RENT' ? 'RENT' : 'FEE',
+          type: 'RENT',
           status: 'PENDING',
           bookingId: booking.id,
           tenantId: tenantId,

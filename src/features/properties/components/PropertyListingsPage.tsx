@@ -8,13 +8,13 @@ import { useProperties } from '../hooks/useProperties';
 import { usePropertyFiltering } from '../hooks/usePropertyFiltering';
 
 interface PropertyListingsPageProps {
-  listingType: 'BUY' | 'RENT';
+  bookingType: 'SHORT_TERM' | 'LONG_TERM';
 }
 
 export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
-  listingType,
+  bookingType,
 }) => {
-  const { properties, loading, error } = useProperties(listingType);
+  const { properties, loading, error } = useProperties(bookingType);
   const {
     filters,
     setFilters,
@@ -22,7 +22,7 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
     setSortBy,
     filteredAndSortedProperties,
     handleResetFilters,
-  } = usePropertyFiltering(properties, listingType);
+  } = usePropertyFiltering(properties, bookingType);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
 

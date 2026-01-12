@@ -44,7 +44,7 @@ export const PropertyDetails: React.FC<PropertyDetailsProps> = ({
       <PropertyActions
         loading={false}
         onBooking={handleBooking}
-        listingType={property.listingType}
+        bookingType={property.bookingType}
       />
 
       <CheckoutWizard

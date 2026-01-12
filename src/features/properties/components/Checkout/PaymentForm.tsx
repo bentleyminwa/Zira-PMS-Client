@@ -23,7 +23,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             Summary
           </span>
           <div className='px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-widest leading-none'>
-            {property.listingType}
+            {property.bookingType === 'SHORT_TERM' ? 'Short Term' : 'Long Term'}
           </div>
         </div>
         <div className='space-y-1'>

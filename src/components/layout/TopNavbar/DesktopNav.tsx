@@ -3,8 +3,8 @@ import { Key, ShoppingBag, Users } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { name: 'Buy', href: '/buy', icon: ShoppingBag },
-  { name: 'Rent', href: '/rent', icon: Key },
+  { name: 'Long Term', href: '/long-term', icon: ShoppingBag },
+  { name: 'Short Term', href: '/short-term', icon: Key },
   { name: 'Agents', href: '/agents', icon: Users },
 ];
 

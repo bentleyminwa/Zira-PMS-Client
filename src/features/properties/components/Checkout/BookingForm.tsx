@@ -10,19 +10,17 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import React from 'react';
-import type { CheckoutData, Property } from '../../types';
+import type { CheckoutData } from '../../types';
 
 interface BookingFormProps {
   data: CheckoutData['booking'];
   errors: Record<string, string>;
-  property: Property;
   onChange: (data: CheckoutData['booking']) => void;
 }
 
 export const BookingForm: React.FC<BookingFormProps> = ({
   data,
   errors,
-  property,
   onChange,
 }) => {
   return (
@@ -117,46 +115,44 @@ export const BookingForm: React.FC<BookingFormProps> = ({
         </div>
       </div>
 
-      {property.listingType === 'RENT' && (
-        <div className='space-y-3'>
-          <Label className='text-xs font-bold uppercase tracking-wider text-muted-foreground'>
-            Lease Type
-          </Label>
-          <div className='grid grid-cols-2 gap-4'>
-            <Button
-              variant={data.type === 'LONG_TERM' ? 'default' : 'outline'}
-              onClick={() => onChange({ ...data, type: 'LONG_TERM' })}
-              className={cn(
-                'h-14 rounded-2xl flex flex-col gap-1 items-center justify-center transition-all',
-                data.type === 'LONG_TERM'
-                  ? 'shadow-lg shadow-primary/20'
-                  : 'border-muted-foreground/20 opacity-70'
-              )}
-            >
-              <span className='text-sm font-bold'>Long Term</span>
-              <span className='text-[10px] opacity-60'>Standard</span>
-            </Button>
-            <Button
-              variant={data.type === 'SHORT_TERM' ? 'default' : 'outline'}
-              onClick={() => onChange({ ...data, type: 'SHORT_TERM' })}
-              className={cn(
-                'h-14 rounded-2xl flex flex-col gap-1 items-center justify-center transition-all',
-                data.type === 'SHORT_TERM'
-                  ? 'shadow-lg shadow-primary/20'
-                  : 'border-muted-foreground/20 opacity-70'
-              )}
-            >
-              <span className='text-sm font-bold'>Short Term</span>
-              <span className='text-[10px] opacity-60'>Flexible</span>
-            </Button>
-          </div>
-          {errors.type && (
-            <p className='text-[10px] text-red-500 font-medium px-1'>
-              {errors.type}
-            </p>
-          )}
+      <div className='space-y-3'>
+        <Label className='text-xs font-bold uppercase tracking-wider text-muted-foreground'>
+          Lease Type
+        </Label>
+        <div className='grid grid-cols-2 gap-4'>
+          <Button
+            variant={data.type === 'LONG_TERM' ? 'default' : 'outline'}
+            onClick={() => onChange({ ...data, type: 'LONG_TERM' })}
+            className={cn(
+              'h-14 rounded-2xl flex flex-col gap-1 items-center justify-center transition-all',
+              data.type === 'LONG_TERM'
+                ? 'shadow-lg shadow-primary/20'
+                : 'border-muted-foreground/20 opacity-70'
+            )}
+          >
+            <span className='text-sm font-bold'>Long Term</span>
+            <span className='text-[10px] opacity-60'>Standard</span>
+          </Button>
+          <Button
+            variant={data.type === 'SHORT_TERM' ? 'default' : 'outline'}
+            onClick={() => onChange({ ...data, type: 'SHORT_TERM' })}
+            className={cn(
+              'h-14 rounded-2xl flex flex-col gap-1 items-center justify-center transition-all',
+              data.type === 'SHORT_TERM'
+                ? 'shadow-lg shadow-primary/20'
+                : 'border-muted-foreground/20 opacity-70'
+            )}
+          >
+            <span className='text-sm font-bold'>Short Term</span>
+            <span className='text-[10px] opacity-60'>Flexible</span>
+          </Button>
         </div>
-      )}
+        {errors.type && (
+          <p className='text-[10px] text-red-500 font-medium px-1'>
+            {errors.type}
+          </p>
+        )}
+      </div>
 
       <div className='space-y-2'>
         <Label

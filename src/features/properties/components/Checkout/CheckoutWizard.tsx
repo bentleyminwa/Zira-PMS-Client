@@ -47,7 +47,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
     booking: {
       startDate: format(new Date(), 'yyyy-MM-dd'),
       endDate: '',
-      type: property.listingType === 'RENT' ? 'LONG_TERM' : 'SHORT_TERM',
+      type: property.bookingType,
     },
     payment: {
       method: 'CARD',
@@ -77,8 +77,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
     if (currentStep === 2) {
       if (!formData.booking.startDate)
         newErrors.startDate = 'Start date is required';
-      if (property.listingType === 'RENT' && !formData.booking.type)
-        newErrors.type = 'Lease type is required';
+      if (!formData.booking.type) newErrors.type = 'Lease type is required';
     }
 
     setErrors(newErrors);
@@ -103,7 +102,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
   if (success) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <SuccessStep property={property} onClose={onClose} />
+        <SuccessStep onClose={onClose} />
       </Dialog>
     );
   }
@@ -114,9 +113,9 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
         <div className='bg-linear-to-br from-primary to-primary/80 p-8 text-primary-foreground'>
           <DialogHeader>
             <DialogTitle className='text-2xl font-bold tracking-tight text-white mb-6'>
-              {property.listingType === 'BUY'
-                ? 'Purchase Property'
-                : 'Rent Property'}
+              {property.bookingType === 'SHORT_TERM'
+                ? 'Book Short-Term Stay'
+                : 'Rent Long-Term Property'}
             </DialogTitle>
           </DialogHeader>
           <div className='flex justify-between relative mt-4'>
@@ -182,7 +181,6 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
             <BookingForm
               data={formData.booking}
               errors={errors}
-              property={property}
               onChange={(booking) => {
                 setFormData({ ...formData, booking });
                 if (Object.keys(errors).length > 0) setErrors({});
@@ -213,11 +211,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
             {loading ? (
               <Loader2 className='w-5 h-5 animate-spin' />
             ) : step === 3 ? (
-              property.listingType === 'BUY' ? (
-                'Confirm Purchase'
-              ) : (
-                'Book Now'
-              )
+              'Confirm Booking'
             ) : (
               <>
                 Next Step <ChevronRight className='ml-2 w-4 h-4' />
