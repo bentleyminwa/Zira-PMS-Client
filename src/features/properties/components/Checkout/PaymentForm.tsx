@@ -7,12 +7,14 @@ import type { CheckoutData, Property } from '../../types';
 interface PaymentFormProps {
   data: CheckoutData['payment'];
   property: Property;
+  bookingType: 'SHORT_TERM' | 'LONG_TERM';
   onChange: (data: CheckoutData['payment']) => void;
 }
 
 export const PaymentForm: React.FC<PaymentFormProps> = ({
   data,
   property,
+  bookingType,
   onChange,
 }) => {
   return (
@@ -23,7 +25,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             Summary
           </span>
           <div className='px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase tracking-widest leading-none'>
-            {property.bookingType === 'SHORT_TERM' ? 'Short Term' : 'Long Term'}
+            {bookingType === 'SHORT_TERM' ? 'Short Term' : 'Long Term'}
           </div>
         </div>
         <div className='space-y-1'>

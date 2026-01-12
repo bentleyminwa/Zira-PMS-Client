@@ -190,6 +190,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
             <PaymentForm
               data={formData.payment}
               property={property}
+              bookingType={formData.booking.type}
               onChange={(payment) => setFormData({ ...formData, payment })}
             />
           )}
