@@ -47,7 +47,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
     booking: {
       startDate: format(new Date(), 'yyyy-MM-dd'),
       endDate: '',
-      type: property.bookingType,
+      type: 'SHORT_TERM',
     },
     payment: {
       method: 'CARD',
@@ -113,9 +113,7 @@ export const CheckoutWizard: React.FC<CheckoutWizardProps> = ({
         <div className='bg-linear-to-br from-primary to-primary/80 p-8 text-primary-foreground'>
           <DialogHeader>
             <DialogTitle className='text-2xl font-bold tracking-tight text-white mb-6'>
-              {property.bookingType === 'SHORT_TERM'
-                ? 'Book Short-Term Stay'
-                : 'Rent Long-Term Property'}
+              Book Property
             </DialogTitle>
           </DialogHeader>
           <div className='flex justify-between relative mt-4'>

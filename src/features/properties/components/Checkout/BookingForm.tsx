@@ -117,7 +117,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
 
       <div className='space-y-3'>
         <Label className='text-xs font-bold uppercase tracking-wider text-muted-foreground'>
-          Lease Type
+          Lease type
         </Label>
         <div className='grid grid-cols-2 gap-4'>
           <Button
@@ -131,7 +131,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
             )}
           >
             <span className='text-sm font-bold'>Long Term</span>
-            <span className='text-[10px] opacity-60'>Standard</span>
+            <span className='text-[10px] opacity-60'>Standard lease</span>
           </Button>
           <Button
             variant={data.type === 'SHORT_TERM' ? 'default' : 'outline'}
@@ -144,7 +144,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
             )}
           >
             <span className='text-sm font-bold'>Short Term</span>
-            <span className='text-[10px] opacity-60'>Flexible</span>
+            <span className='text-[10px] opacity-60'>Nightly/Weekly</span>
           </Button>
         </div>
         {errors.type && (

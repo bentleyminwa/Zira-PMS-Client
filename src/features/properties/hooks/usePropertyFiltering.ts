@@ -6,22 +6,17 @@ const DEFAULT_FILTERS: FilterState = {
   type: 'Apartment',
   location: 'California, USA',
   minPrice: 0,
-  maxPrice: 5000000,
+  maxPrice: 1000000,
 };
 
-export function usePropertyFiltering(
-  properties: Property[],
-  bookingType: 'SHORT_TERM' | 'LONG_TERM'
-) {
+export function usePropertyFiltering(properties: Property[]) {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
 
   // Memoize base properties to avoid unnecessary re-filtering of mock data
   const baseProperties = useMemo(() => {
-    return properties.length > 0
-      ? properties
-      : MOCK_PROPERTIES.filter((p) => p.bookingType === bookingType);
-  }, [properties, bookingType]);
+    return properties.length > 0 ? properties : MOCK_PROPERTIES;
+  }, [properties]);
 
   // Memoize filtered and sorted list
   const filteredAndSortedProperties = useMemo(() => {

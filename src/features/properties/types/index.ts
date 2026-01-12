@@ -6,7 +6,7 @@ export interface Property {
   city: string;
   price: number;
   type: 'APARTMENT' | 'HOUSE' | 'COMMERCIAL' | 'CONDO';
-  bookingType: 'SHORT_TERM' | 'LONG_TERM';
+
   bedrooms: number;
   bathrooms: number;
   size: number;

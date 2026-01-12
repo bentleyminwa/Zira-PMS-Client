@@ -36,9 +36,9 @@ export const PriceRangeFilter: React.FC<PriceRangeFilterProps> = ({
 
           <div className='absolute inset-x-0 bottom-0 py-2'>
             <Slider
-              defaultValue={[0, 5000000]}
+              defaultValue={[0, 1000000]}
               value={[minPrice, maxPrice]}
-              max={5000000}
+              max={1000000}
               step={10000}
               onValueChange={handleSliderChange}
             />

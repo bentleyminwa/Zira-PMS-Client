@@ -7,14 +7,10 @@ import React, { useState } from 'react';
 import { useProperties } from '../hooks/useProperties';
 import { usePropertyFiltering } from '../hooks/usePropertyFiltering';
 
-interface PropertyListingsPageProps {
-  bookingType: 'SHORT_TERM' | 'LONG_TERM';
-}
+interface PropertyListingsPageProps {}
 
-export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
-  bookingType,
-}) => {
-  const { properties, loading, error } = useProperties(bookingType);
+export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = () => {
+  const { properties, loading, error } = useProperties();
   const {
     filters,
     setFilters,
@@ -22,7 +18,7 @@ export const PropertyListingsPage: React.FC<PropertyListingsPageProps> = ({
     setSortBy,
     filteredAndSortedProperties,
     handleResetFilters,
-  } = usePropertyFiltering(properties, bookingType);
+  } = usePropertyFiltering(properties);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
 

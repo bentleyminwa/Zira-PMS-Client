@@ -2,7 +2,7 @@ import { useSupabase } from '@/hooks/useSupabase';
 import { useQuery } from '@tanstack/react-query';
 import type { Property } from '../types';
 
-export function useProperties(bookingType?: 'SHORT_TERM' | 'LONG_TERM') {
+export function useProperties() {
   const supabase = useSupabase();
 
   const {
@@ -10,18 +10,12 @@ export function useProperties(bookingType?: 'SHORT_TERM' | 'LONG_TERM') {
     isLoading: loading,
     error,
   } = useQuery({
-    queryKey: ['properties', bookingType],
+    queryKey: ['properties'],
     queryFn: async () => {
-      let query = supabase
+      const { data, error } = await supabase
         .from('Property')
         .select('*, agent:User(*)')
         .eq('status', 'AVAILABLE');
-
-      if (bookingType) {
-        query = query.eq('bookingType', bookingType);
-      }
-
-      const { data, error } = await query;
 
       if (error) throw error;
       return data as Property[];

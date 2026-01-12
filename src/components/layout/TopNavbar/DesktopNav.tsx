@@ -1,10 +1,9 @@
 import { cn } from '@/lib/utils';
-import { Key, ShoppingBag, Users } from 'lucide-react';
+import { ShoppingBag, Users } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { name: 'Long Term', href: '/long-term', icon: ShoppingBag },
-  { name: 'Short Term', href: '/short-term', icon: Key },
+  { name: 'Properties', href: '/properties', icon: ShoppingBag },
   { name: 'Agents', href: '/agents', icon: Users },
 ];
 

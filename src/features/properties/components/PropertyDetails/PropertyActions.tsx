@@ -5,13 +5,11 @@ import React from 'react';
 interface PropertyActionsProps {
   loading: boolean;
   onBooking: () => void;
-  bookingType: 'SHORT_TERM' | 'LONG_TERM';
 }
 
 export const PropertyActions: React.FC<PropertyActionsProps> = ({
   loading,
   onBooking,
-  bookingType,
 }) => {
   return (
     <div className='p-6 border-t border-border flex flex-col gap-3'>
@@ -24,7 +22,7 @@ export const PropertyActions: React.FC<PropertyActionsProps> = ({
           onClick={onBooking}
           disabled={loading}
         >
-          {bookingType === 'SHORT_TERM' ? 'Book Short-Term' : 'Book Long-Term'}
+          Book Now
         </Button>
         <Button variant='outline' className='h-14 w-14 rounded-2xl shrink-0'>
           <Mail className='w-5 h-5' />
